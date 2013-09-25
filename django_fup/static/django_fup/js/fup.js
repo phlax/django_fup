@@ -9,7 +9,6 @@ var FileUploads = {};
     var Uploader;
 
     Uploader = function (selector, url, csrf, onUploadComplete, onUploadFail) {
-        return function () {
             var uploader;
             $(selector).fineUploader({
                 request: {
@@ -34,30 +33,39 @@ var FileUploads = {};
                 $('.file-upload-progress .bar').css('width', 0);
                 onUploadComplete(id, name, responseJSON);
             });
-        };
     };
 
     FileUploads.Uploader = function (selector, csrf, onUploadComplete, onUploadFail) {
-        selector.live("click", function (event) {
-            var $this, url, target, uploader_selector, instructions, upload_url;
-            url = $(this).attr('data-source');
-            upload_url =  $(this).attr('data-upload');
-            target = $(this).attr('data-target');
-            uploader_selector = '#file-uploader';
-            $this = this;
-            $(target)
-                .load(url, new Uploader(uploader_selector, upload_url, csrf, function (id, orig_filename, data) {
-                    if (data.success) {
-                        onUploadComplete($this, data);
-                    } else {
-                        onUploadFail($this, data);
-                    }
-                }), function () {
-                    if (onUploadFail !== 'undefined') {
-                        onUploadFail($this);
-                    }
-                });
+        var $this, url, target, uploader_selector, instructions, upload_url;
+        url = $(selector).data('source');
+        upload_url =  $(selector).data('upload');
+        target = $(selector).data('target');
+        uploader_selector = '#file-uploader';
+        $this = $(selector);
+        new Uploader(uploader_selector, upload_url, csrf, function (id, orig_filename, data) {
+            if (data.success) {
+		if (onUploadComplete) {
+                    onUploadComplete($this, data);
+		}
+            } else {
+		if (onUploadFailed) {
+                    onUploadFail($this, data);
+		}
+            }
         });
-    };
+    }
+
+    $(document).on('fup-load', '', function (evt) {
+	new FileUploads.Uploader(evt.target, csrf_token, function (clicked, data) {
+	    // close the modal
+	    console.log($($(clicked).data('target')))
+
+	    $('a[href="#close"]', $($(clicked).data('target'))).click();
+	    
+	    // update the image on the form
+	    $('img', $(clicked)).attr('src', data.thumb_url);
+	    $(clicked).next().val(data.url);
+	});
+    });
 
 }(jQuery));

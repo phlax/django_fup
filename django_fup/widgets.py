@@ -1,3 +1,4 @@
+import importlib
 import uuid
 
 from django.utils.safestring import mark_safe
@@ -15,7 +16,7 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
     template_file_uploader = (
         '<div class="image">'
         + '<a class="add overlay" data-target="%(data-target)s" href="/fup" '
-        + 'data-source="%(data-source)s" data-toggle="%(data-toggle)s" '
+        + 'data-source="%(data-source)s" data-toggle="%(data-toggle)s" data-overlay-onload="fup-load"'
         + 'data-upload="%(data-upload)s" >'
         + '<img src="%(img_src)s" /></a>'
         + '<input type="hidden" id="%(input_id)s" name="%(input_id)s" '
@@ -62,7 +63,13 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
                 uuid=value.name[:32]).get_absolute_url()
         else:
             img_src = value and value.url or img_default
-
+            if img_src != img_default and hasattr(settings, "FUP_THUMBNAILER"):
+                thumbnailer = getattr(
+                    importlib.import_module(
+                        '.'.join(settings.FUP_THUMBNAILER.split('.')[:-1])),
+                    settings.FUP_THUMBNAILER.split('.')[-1])()
+                thumbnailer.thumbnail(value.name)
+                
         if hasattr(value, 'instance'):
             img_id = value.instance.pk
         else:

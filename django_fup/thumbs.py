@@ -16,6 +16,6 @@ class EasyThumbs(object):
         thumbnailer = get_thumbnailer(
             src, relative_name=relative_name)
         thumbnail_options = {}
-        thumbnail_options.update({'size': (120, 120)})
+        thumbnail_options.update({'size': (100, 100)})
         return thumbnailer.get_thumbnail(thumbnail_options)
 

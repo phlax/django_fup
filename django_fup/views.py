@@ -70,6 +70,7 @@ def file_uploader_json(request, *la, **kwa):
         'success': True,
         'filename': temp_image.original.name,
         'url': temp_image.get_absolute_url(),
+        'thumb_url': temp_image.get_thumbnail_url(),
         'id': temp_image.id}
 
     return HttpResponse(

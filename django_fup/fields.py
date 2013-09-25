@@ -17,4 +17,5 @@ class TempImageField(models.ImageField):
     def generate_filename(self, instance, name):
         return '%s%s_%s' % (self.upload_to, instance.uuid.hex, name)
 
-add_introspection_rules([], ["^file_uploads\.fields\.TempImageField"])
+
+add_introspection_rules([], ["^django_fup\.fields\.TempImageField"])

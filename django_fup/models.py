@@ -1,3 +1,5 @@
+import importlib
+
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -30,3 +32,12 @@ class TempImage(models.Model):
     def get_absolute_url(self):
         return '%s%s' % (
             settings.MEDIA_URL, self.original.name)
+
+    def get_thumbnail_url(self):
+        if hasattr(settings, "FUP_THUMBNAILER"):
+            thumbnailer = getattr(
+                importlib.import_module(
+                    '.'.join(settings.FUP_THUMBNAILER.split('.')[:-1])),
+                settings.FUP_THUMBNAILER.split('.')[-1])()
+            return thumbnailer.thumbnail(self.original.name).url
+        return self.get_absolute_url()
