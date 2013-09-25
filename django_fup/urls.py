@@ -5,9 +5,9 @@ from file_uploads.views import file_uploader, file_uploader_json
 
 urlpatterns = patterns(
     '',
-    url(r'^file-uploader/$',
+    url(r'^fup/$',
         file_uploader,
-        name="file-uploader"),
-    url(r'^file-uploader-upload/$',
+        name="fup"),
+    url(r'^fup-upload/$',
         file_uploader_json,
-        name="file-uploader-upload"))
+        name="fup-upload"))

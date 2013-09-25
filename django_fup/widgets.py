@@ -14,7 +14,7 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
 
     template_file_uploader = (
         '<div class="image">'
-        + '<a class="add" data-target="%(data-target)s" href="#" '
+        + '<a class="add overlay" data-target="%(data-target)s" href="/fup" '
         + 'data-source="%(data-source)s" data-toggle="%(data-toggle)s" '
         + 'data-upload="%(data-upload)s" >'
         + '<img src="%(img_src)s" /></a>'
@@ -55,7 +55,7 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
             'clear_checkbox_label': self.clear_checkbox_label}
 
         template = u'%(input)s<noscript>%(noscript)s</noscript>'
-        img_default = '%sdjango-fup/img/question.small.gif' % settings.STATIC_URL
+        img_default = '%sdjango_fup/img/question.small.gif' % settings.STATIC_URL
 
         if isinstance(value, SimpleUploadedFile):
             img_src = TempImage.objects.get(
@@ -73,8 +73,8 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
             'img_id': img_id,
             'input_name': attrs['id'][3:],
             'input_id': attrs['id'],
-            'data-toggle': 'modal',
-            'data-target': '#modal-upload',
+            'data-toggle': 'overlay',
+            'data-target': '#overlay-page',
             'data-source': reverse('file-uploader'),
             'data-upload': reverse('file-uploader-upload')}
 
