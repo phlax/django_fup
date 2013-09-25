@@ -9,7 +9,7 @@ from uuidfield.fields import UUIDField
 
 from django_fup.fields import TempImageField
 
-UPLOAD_PATH = 'file_uploads/original/'
+UPLOAD_PATH = 'fup/original/'
 
 
 class TempImage(models.Model):

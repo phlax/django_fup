@@ -8,7 +8,7 @@ except:
 
 from django.utils.translation import ugettext as _
 
-from file_uploads.exceptions import ImageUploadError
+from django_fup.exceptions import ImageUploadError
 
 
 def validate_uploaded_image(upfile, min_width=None, min_height=None):

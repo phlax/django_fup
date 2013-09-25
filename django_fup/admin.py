@@ -1,5 +1,5 @@
 from django.contrib import admin
-from file_uploads.models import TempImage
+from django_fup.models import TempImage
 
 
 admin.site.register(TempImage)
