@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 
-from file_uploads.models import TempImage
+from django_fup.models import TempImage
 
 
 class FileUploadsImageWidget(widgets.ClearableFileInput):
@@ -75,8 +75,8 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
             'input_id': attrs['id'],
             'data-toggle': 'overlay',
             'data-target': '#overlay-page',
-            'data-source': reverse('file-uploader'),
-            'data-upload': reverse('file-uploader-upload')}
+            'data-source': reverse('fup'),
+            'data-upload': reverse('fup-upload')}
 
         substitutions['input'] = self.template_file_uploader % input_attrs
         substitutions['noscript'] = super(

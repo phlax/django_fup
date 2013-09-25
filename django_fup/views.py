@@ -7,14 +7,14 @@ from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
 
-from file_uploads.models import TempImage
-from file_uploads.utils import validate_uploaded_image
-from file_uploads.exceptions import ImageUploadError
+from django_fup.models import TempImage
+from django_fup.utils import validate_uploaded_image
+from django_fup.exceptions import ImageUploadError
 
 
 def max_image_size():
     return getattr(settings, 'MAX_IMAGE_SIZE', 2097152)
-TPL_FILE_UPLOADER = "file_uploads/file_uploader_view.html"
+TPL_FILE_UPLOADER = "django_fup/file_uploader_view.html"
 
 
 @login_required

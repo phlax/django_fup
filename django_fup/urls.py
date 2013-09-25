@@ -1,13 +1,13 @@
 from django.conf.urls.defaults import url, patterns
 
-from file_uploads.views import file_uploader, file_uploader_json
+from django_fup.views import file_uploader, file_uploader_json
 
 
 urlpatterns = patterns(
     '',
-    url(r'^fup/$',
+    url(r'^/?$',
         file_uploader,
         name="fup"),
-    url(r'^fup-upload/$',
+    url(r'^upload/?$',
         file_uploader_json,
         name="fup-upload"))

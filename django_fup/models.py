@@ -5,7 +5,7 @@ from django_extensions.db.fields.json import JSONField
 
 from uuidfield.fields import UUIDField
 
-from file_uploads.fields import TempImageField
+from django_fup.fields import TempImageField
 
 UPLOAD_PATH = 'file_uploads/original/'
 
