@@ -68,8 +68,8 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
                     importlib.import_module(
                         '.'.join(settings.FUP_THUMBNAILER.split('.')[:-1])),
                     settings.FUP_THUMBNAILER.split('.')[-1])()
-                thumbnailer.thumbnail(value.name)
-                
+                img_src = thumbnailer.thumbnail(value.name).url
+
         if hasattr(value, 'instance'):
             img_id = value.instance.pk
         else:
