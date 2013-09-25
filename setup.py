@@ -19,6 +19,7 @@ setup(
         'django_fup'],
     package_data={
         'django_fup': [
+            'templates/django_fup/*',
             'static/django_fup/js/*',            
             'static/django_fup/css/*']},
     classifiers=[
