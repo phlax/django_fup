@@ -55,7 +55,7 @@ class FileUploadsImageWidget(widgets.ClearableFileInput):
             'clear_checkbox_label': self.clear_checkbox_label}
 
         template = u'%(input)s<noscript>%(noscript)s</noscript>'
-        img_default = '%sfile_uploads/img/question.small.gif' % settings.STATIC_URL
+        img_default = '%sdjango-fup/img/question.small.gif' % settings.STATIC_URL
 
         if isinstance(value, SimpleUploadedFile):
             img_src = TempImage.objects.get(
